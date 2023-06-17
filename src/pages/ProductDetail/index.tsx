@@ -19,6 +19,7 @@ function ProductDetail() {
     const [product, setProduct] = useState<IProduct | null>(null)
     const [relatedProducts, setRelatedProducts] = useState<IProduct[]>([])
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (params.id) {
             productApi.searchDetail(params.id).then(res => {
                 setProduct(res.data)

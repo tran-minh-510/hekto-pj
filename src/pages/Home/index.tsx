@@ -17,18 +17,23 @@ import background01Img from "/src/image/background01.png"
 import leatestBlog1Img from "/src/image/Leatest-Blog1.png"
 import sponsorImg from "/src/image/sponsor.png"
 import { useState, useEffect } from 'react'
-import authApi from "../../api/auth"
 import productApi from "../../api/product"
 import { IProduct } from "../../interfaces"
+import { useNavigate } from 'react-router-dom';
+
 const Home: React.FC = () => {
+    const navigate = useNavigate()
     const [featuredProducts, setFeaturedProducts] = useState<IProduct[]>([])
-    const [leatestProducts, setLeatestProducts] = useState<IProduct[]>([])
+    const [latestProducts, setLatestProducts] = useState<IProduct[]>([])
     const [trendingProducts, setTrendingProducts] = useState<IProduct[]>([])
+    const handleDetailProduct = (id: number, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        navigate(`/product/${id}`)
+    }
     useEffect(() => {
-        authApi.getCurrentUser().then(console.log)
+        // authApi.getCurrentUser().then(console.log)
         productApi.getCombineProducts().then(res => {
             setFeaturedProducts(res.data.featureProducts)
-            setLeatestProducts(res.data.leatestProducts)
+            setLatestProducts(res.data.latestProducts)
             setTrendingProducts(res.data.trendingProducts)
         })
 
@@ -67,7 +72,7 @@ const Home: React.FC = () => {
                     <Grid container spacing={4} style={{ marginTop: '2em' }}>
                         {featuredProducts && featuredProducts.map(product =>
                             <Grid item xs={3} key={product.id}>
-                                <CustomProductItem data={product} type='features' />
+                                <CustomProductItem data={product} type='features' onClick={e => handleDetailProduct(product.id, e)} />
                             </Grid>)}
                     </Grid>
                 </Container>
@@ -76,9 +81,9 @@ const Home: React.FC = () => {
                 <Container>
                     <ProductsTitle>Leatest Products</ProductsTitle>
                     <Grid container spacing={5} style={{ marginTop: '2em' }}>
-                        {featuredProducts && featuredProducts.map(product =>
+                        {latestProducts && latestProducts.map(product =>
                             <Grid item xs={4} key={product.id}>
-                                <ProductSale data={product} />
+                                <ProductSale data={product} onClick={e => handleDetailProduct(product.id, e)} />
                             </Grid>)}
                     </Grid>
                 </Container>
@@ -155,7 +160,7 @@ const Home: React.FC = () => {
                     <Grid container spacing={{ xs: 3 }} padding={'5em 0 8em 0'}>
                         {trendingProducts && trendingProducts.map(product =>
                             <Grid item xs={3} key={product.id}>
-                                <CustomProductItem data={product} type='trending' />
+                                <CustomProductItem data={product} type='trending' onClick={e => handleDetailProduct(product.id, e)} />
                             </Grid>)}
                     </Grid>
                 </Container>
@@ -337,6 +342,10 @@ const ProductsTitle = styled.h3`
 
 const LeatestProducts = styled.div`
     margin-top: 10em;
+    img{
+        width: 340px;
+        height: 250px;
+    }
 `
 
 const Offer = styled.div`

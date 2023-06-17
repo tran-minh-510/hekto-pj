@@ -2,36 +2,33 @@ import SearchProduct from "../../components/SearchProduct"
 import { Container, Grid } from "@mui/material"
 import styled from "styled-components"
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import productApi from '../../api/product';
 import { IProduct } from "../../interfaces";
 
 function SearchResult() {
+    const navigate = useNavigate()
     const [products, setProducts] = useState<IProduct[]>([])
     const location = useLocation()
     const query = new URLSearchParams(location.search)
-    const keyword = String(query)
+    const keyword = query.get('keyword')
+    const handleDetailProduct = (id: number, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        navigate(`/product/${id}`)
+    }
     useEffect(() => {
-        productApi.search({ limit: 2, page: 1, order: 'createdAt:desc,id:desc', search: keyword }).then(res => {
-            setProducts(res.data)
-        })
+        if (keyword) {
+            productApi.search({ limit: 2, page: 1, order: 'createdAt:desc,id:desc', search: keyword }).then(res => {
+                setProducts(res.data)
+            })
+        }
     }, [])
     return (
         <HandleContainer>
             <WrapperSearchProduct>
                 <Grid container spacing={{ xs: 3 }}>
                     {products.length > 0 ? products.map((item, index) => <Grid key={index} item xs={12}>
-                        <SearchProduct product={item} />
+                        <SearchProduct product={item} onClick={e => handleDetailProduct(item.id, e)} />
                     </Grid>) : <span>Không có dữ liệu</span>}
-                    {/* <Grid item xs={12}>
-                        <SearchProduct />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <SearchProduct />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <SearchProduct />
-                    </Grid> */}
                 </Grid>
             </WrapperSearchProduct>
         </HandleContainer>

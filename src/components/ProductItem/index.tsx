@@ -3,14 +3,15 @@ import Image from "../Image"
 import { Stack } from "@mui/material"
 import { IProduct } from "../../interfaces"
 
-interface IProps {
+interface IProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     data: IProduct,
     type: 'features' | 'trending'
 }
 
-const ProductItem: React.FC<IProps> = ({ data, type }) => {
+const ProductItem: React.FC<IProps> = ({ data, type, ...props }) => {
+    console.log(props)
     return (
-        <WrapProductItem>
+        <WrapProductItem onClick={props.onClick}>
             <WrapImageProduct>
                 <Image src={data.images[0].url} />
             </WrapImageProduct>

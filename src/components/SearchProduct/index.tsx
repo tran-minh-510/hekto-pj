@@ -5,13 +5,13 @@ import styled from "styled-components"
 import { StarIcon, CartIcon, HeartIcon, SearchIcon } from "../icons"
 import { IProduct } from "../../interfaces";
 
-interface IProps {
+interface IProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     product: IProduct
 }
 
-const SearchProduct: React.FC<IProps> = ({ product }) => {
+const SearchProduct: React.FC<IProps> = ({ product, ...props }) => {
     return (
-        <Stack direction='row' spacing={{ xs: 2 }} alignItems='center'>
+        <Stack direction='row' spacing={{ xs: 2 }} alignItems='center' onClick={props.onClick}>
             <Image src={product.images[0].url} />
             <SearchProductDetail>
                 <Stack direction='row' spacing={{ xs: 2 }} alignItems='center'>

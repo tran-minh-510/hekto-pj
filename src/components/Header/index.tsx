@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { EmailIcon, PhoneIcon, ArrowDownIcon, CartIcon, UserIcon, HeartIcon, LogoIcon, SearchIcon } from '../icons';
 import Input from '../Input';
 import Button from '../Button';
-import React, { FC } from 'react';
+import React from 'react';
 import Image from '../Image';
 import { useState } from 'react';
 import productApi from '../../api/product';
@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { IProduct } from '../../interfaces';
 import { useDebouncedEffect } from '../../hooks/useDebouncedEffect ';
 
-const Header = (props: object, ref: any) => {
+const Header = (props: any, ref: any) => {
     const [isShowResult, setIsShowResult] = useState(false)
     const [keyword, setKeyWord] = useState('')
     const [products, setProducts] = useState<IProduct[]>([])

@@ -3,21 +3,21 @@ import Image from "../Image"
 import { Stack } from "@mui/material"
 import { IProduct } from "../../interfaces"
 
-interface IProps {
+interface IProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
     data: IProduct
 }
 
-const ProductSale: React.FC<IProps> = ({ data }) => {
+const ProductSale: React.FC<IProps> = ({ data, ...props }) => {
     return (
-        <WrapProductSale>
+        <WrapProductSale onClick={props.onClick}>
             <WrapImageProduct>
                 <Image src={data.images[0].url} />
             </WrapImageProduct>
             <Stack direction='row' justifyContent="space-between" alignItems="center" style={{ padding: '1em 0' }}>
-                <NameProduct>Trần Minh Đức</NameProduct>
+                <NameProduct>{data.name}</NameProduct>
                 <Stack direction='row' spacing={{ xs: 1 }} alignItems="center">
-                    <Price>123</Price>
-                    <Price className="price-old">123</Price>
+                    <Price>${data.price}</Price>
+                    <Price className="price-old">$1000</Price>
                 </Stack>
             </Stack>
         </WrapProductSale>

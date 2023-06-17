@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import Image from "../Image"
 import { Stack } from "@mui/material"
-import customerImg from '../../image/customer.png'
 import { StarIcon } from "../icons"
 import { IProduct } from "../../interfaces"
 

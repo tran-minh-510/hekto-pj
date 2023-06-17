@@ -32,7 +32,7 @@ export interface IProduct {
 export interface ICombineProductResponse {
     data: {
         featureProducts: IProduct[];
-        leatestProducts: IProduct[];
+        latestProducts: IProduct[];
         trendingProducts: IProduct[];
     };
 }
@@ -40,7 +40,7 @@ export interface ICombineProductResponse {
 export interface ICombineProductResponse {
     data: {
         featureProducts: IProduct[];
-        leatestProducts: IProduct[];
+        latestProducts: IProduct[];
         trendingProducts: IProduct[];
     };
 }
